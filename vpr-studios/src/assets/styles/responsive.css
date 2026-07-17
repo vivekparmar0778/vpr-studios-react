@@ -1,0 +1,23 @@
+/* Large Desktop */
+@media (max-width: 1400px) {}
+
+/* Desktop */
+@media (max-width: 1200px) {}
+
+/* Laptop */
+@media (max-width: 992px) {}
+
+/* Tablet */
+@media (max-width: 768px) {}
+
+/* Large Mobile */
+@media (max-width: 576px) {}
+
+/* Mobile */
+@media (max-width: 480px) {}
+
+/* Small Mobile */
+@media (max-width: 400px) {}
+
+/* Very Small Devices (only if needed) */
+@media (max-width: 360px) {}

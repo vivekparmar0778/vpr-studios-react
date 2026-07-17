@@ -1,0 +1,106 @@
+:root {
+  /* ===========================
+     Brand Colors
+  =========================== */
+
+  --color-primary: #e11d48;
+  --color-primary-hover: #be123c;
+
+  /* ===========================
+     Neutral Colors
+  =========================== */
+
+  --color-bg: #0f1117;
+  --color-surface: #171923;
+  --color-card: #20232d;
+
+  --color-heading: #ffffff;
+  --color-text: #e5e7eb;
+  --color-muted: #cbd5e1;
+
+  --color-border: #313543;
+
+  /* ===========================
+     Status Colors
+  =========================== */
+
+  --color-success: #22c55e;
+  --focus-color: #38bdf8;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  /* ===========================
+     Layout
+  =========================== */
+
+  --container-width: 128rem;
+  --header-height: 8rem;
+
+  /* ===========================
+     Typography
+  =========================== */
+
+  --fs-xs: 1.2rem;
+  --fs-sm: 1.4rem;
+  --fs-base: 1.6rem;
+  --fs-lg: 1.8rem;
+  --fs-xl: 2.4rem;
+  --fs-2xl: 3.2rem;
+  --fs-3xl: 4.8rem;
+  --fs-4xl: 6rem;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --line-height-base: 1.6;
+  --line-height-heading: 1.2;
+
+  /* ===========================
+     Spacing (8px System)
+  =========================== */
+
+  --space-xs: .8rem;
+  --space-sm: 1.6rem;
+  --space-md: 2.4rem;
+  --space-lg: 3.2rem;
+  --space-xl: 4.8rem;
+  --space-2xl: 6.4rem;
+  --space-3xl: 8rem;
+
+  /* ===========================
+     Border Radius
+  =========================== */
+
+  --radius-sm: .8rem;
+  --radius-md: 1.2rem;
+  --radius-lg: 2rem;
+  --radius-full: 999px;
+
+  /* ===========================
+     Shadows
+  =========================== */
+
+  --shadow-sm: 0 .4rem 1.2rem rgba(0,0,0,.20);
+  --shadow-md: 0 .8rem 2.4rem rgba(0,0,0,.30);
+  --shadow-lg: 0 2rem 5rem rgba(0,0,0,.40);
+
+  /* ===========================
+     Transition
+  =========================== */
+
+  --transition-fast: .2s ease;
+  --transition: .3s ease;
+  --transition-slow: .5s ease;
+
+  /* ===========================
+     Z-index
+  =========================== */
+
+  --z-dropdown: 100;
+  --z-sticky: 500;
+  --z-fixed: 700;
+  --z-modal: 900;
+  --z-toast: 1000;
+}

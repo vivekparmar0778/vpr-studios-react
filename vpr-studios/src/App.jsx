@@ -1,6 +1,10 @@
+import Navbar from "./components/layout/Navbar/Navbar.jsx";
+
 function App() {
   return (
-    <h1>VPR Studios</h1>
+    <>
+      <Navbar />
+    </>
   );
 }
 
