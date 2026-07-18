@@ -1,5 +1,11 @@
+import Navbar from "./components/layout/Navbar/Navbar";
+
 function App() {
-  return (<h1>VPR Studios</h1>);
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 }
 
 export default App;

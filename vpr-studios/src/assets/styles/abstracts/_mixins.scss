@@ -1,0 +1,83 @@
+@use "sass:map";
+@use "./breakpoints" as *;
+
+/* ===================================
+   FLEX
+=================================== */
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================================
+   BUTTON RESET
+=================================== */
+
+@mixin button-reset {
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* ===================================
+   CONTAINER
+=================================== */
+
+@mixin container {
+  width: min(var(--container-width), calc(100% - 4rem));
+  margin-inline: auto;
+}
+
+/* ===================================
+   BREAKPOINTS
+=================================== */
+
+@mixin desktop {
+  @media (max-width: $tablet-lg) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin mobile-lg {
+  @media (max-width: $mobile-lg) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin mobile-sm {
+  @media (max-width: $mobile-sm) {
+    @content;
+  }
+}
+
+@mixin mobile-xs {
+  @media (max-width: $mobile-xs) {
+    @content;
+  }
+}

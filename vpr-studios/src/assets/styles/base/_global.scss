@@ -1,0 +1,51 @@
+body {
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+.container {
+  width: min(var(--container-width), calc(100% - 4rem));
+  margin-inline: auto;
+}
+
+section {
+  padding: 8rem 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-heading);
+  line-height: 1.2;
+}
+
+p {
+  color: var(--color-text);
+  line-height: 1.7;
+}
+
+button {
+  border: none;
+  background: transparent;
+}
+
+input,
+textarea {
+  border: none;
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid #38bdf8;
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: #fff;
+}

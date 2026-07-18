@@ -1,0 +1,240 @@
+@use "../../../assets/styles/abstracts/mixins" as *;
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-modal);
+
+  height: var(--header-height);
+
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+
+  transition: var(--transition);
+  @include flex-center;
+
+  &__wrapper {
+    @include flex-between;
+    height: 100%;
+  }
+  &__overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    z-index: 998;
+  }
+  &__logo {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    color: var(--color-heading);
+    transition: var(--transition);
+    border-radius: 0.1rem;
+
+    &:hover {
+      color: var(--color-primary);
+      transform: scale(1.05);
+    }
+  }
+  &__menu {
+    height: 100%;
+    z-index: 999;
+  }
+
+  &__links {
+    @include flex-center;
+    gap: var(--space-xl);
+    height: 100%;
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 4px;
+      border-radius: var(--radius-md);
+    }
+  }
+
+  &__link {
+    @include flex-center;
+
+    position: relative;
+    height: 100%;
+
+    color: var(--color-text);
+    font-size: var(--fs-base);
+    font-weight: var(--fw-medium);
+
+    transition: var(--transition);
+    border-radius: 0.1rem;
+    &:hover {
+      color: var(--color-primary);
+    }
+
+    &--active {
+      color: var(--color-primary);
+    }
+
+    &::after {
+      content: "";
+
+      position: absolute;
+      left: -50%;
+      bottom: 0;
+
+      width: 100%;
+      height: 0.2rem;
+
+      background: var(--color-primary);
+
+      transform: translateX(50%) scaleX(0);
+      transition: var(--transition);
+    }
+
+    &:hover::after,
+    &--active::after {
+      transform: translateX(50%) scaleX(1);
+    }
+  }
+  &__actions {
+    @include flex-center;
+    gap: var(--space-md);
+  }
+
+  &__icon-btn {
+    @include flex-center;
+
+    width: 4rem;
+    height: 4rem;
+
+    color: var(--color-text);
+    font-size: var(--fs-lg);
+
+    border-radius: var(--radius-full);
+
+    transition: var(--transition);
+
+    &:hover {
+      color: var(--color-primary);
+      background: var(--color-surface);
+    }
+  }
+
+  &__sign-btn {
+    padding: 1rem 2.5rem;
+
+    background: var(--color-primary);
+    color: var(--color-white);
+
+    font-size: var(--fs-base);
+    font-weight: var(--fw-medium);
+
+    border-radius: var(--radius-md);
+
+    transition: var(--transition);
+
+    &:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+  }
+
+  &__menu-btn {
+    @include flex-center;
+    display: none;
+
+    width: 4rem;
+    height: 4rem;
+
+    color: var(--color-text);
+    font-size: var(--fs-xl);
+
+    border-radius: var(--radius-full);
+
+    transition: var(--transition);
+    svg {
+      transition: var(--transition);
+      &:hover {
+        transform: rotate(90deg);
+      }
+    }
+    &:hover {
+      color: var(--color-primary);
+      background: var(--color-surface);
+    }
+  }
+}
+
+@include tablet {
+  .navbar {
+    &__logo {
+      font-size: var(--fs-lg);
+    }
+
+    &__links {
+      gap: var(--space-lg);
+    }
+
+    &__link {
+      font-size: var(--fs-sm);
+    }
+
+    &__sign-btn {
+      padding: 0.9rem 2rem;
+      font-size: var(--fs-sm);
+    }
+  }
+}
+
+@include mobile-lg {
+  .navbar {
+    &__logo {
+      font-size: var(--fs-lg);
+    }
+
+    &__menu-btn {
+      display: flex;
+      position: relative;
+      z-index: 1001;
+    }
+    &__icon-btn,
+    &__sign-btn {
+      display: none;
+    }
+    &__menu {
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+
+      width: 280px;
+      height: calc(100vh - var(--header-height));
+
+      background: var(--color-bg);
+
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+
+      z-index: 999;
+
+      &.active {
+        transform: translateX(0);
+      }
+    }
+
+    &__links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-lg);
+
+      padding: var(--space-xl);
+      height: auto;
+    }
+  }
+}
+
+@include mobile {
+  .navbar {
+    &__logo {
+      font-size: var(--fs-base);
+    }
+  }
+}

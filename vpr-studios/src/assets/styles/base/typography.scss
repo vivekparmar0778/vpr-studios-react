@@ -1,0 +1,33 @@
+h1 {
+  font-size: var(--fs-4xl);
+  font-weight: var(--fw-bold);
+}
+
+h2 {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-bold);
+}
+
+h3 {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semibold);
+}
+
+h4 {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+}
+
+h5 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+}
+
+h6 {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
+}
+
+p {
+  font-size: var(--fs-base);
+}
