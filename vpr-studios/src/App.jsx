@@ -1,11 +1,5 @@
-import Navbar from "./components/layout/Navbar/Navbar.jsx";
-
 function App() {
-  return (
-    <>
-      <Navbar />
-    </>
-  );
+  return (<h1>VPR Studios</h1>);
 }
 
 export default App;
