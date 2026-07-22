@@ -1,0 +1,262 @@
+@use "../../../assets/styles/abstracts/mixins" as *;
+
+
+
+
+
+.movie-row {
+  padding-block: var(--space-3xl);
+
+  &__header {
+    margin-bottom: var(--space-xl);
+  }
+
+  &__title {
+    color: var(--color-heading);
+
+    font-size: clamp(2.8rem, 4vw, 4rem);
+    font-weight: var(--fw-bold);
+  }
+.movie-row__slider {
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+  &__wrapper {
+    position: relative;
+  }
+
+  &__slider {
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-lg);
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-behavior: smooth;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 0;
+    padding: 2rem;
+    &::-webkit-scrollbar {
+      display: none;
+      
+    }
+    &:focus-visible{
+        outline: none
+    }
+
+  }
+
+  &__arrow {
+    @include button-reset;
+    @include flex-center;
+
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 5rem;
+    height: 5rem;
+    opacity: 0;
+    border-radius: var(--radius-full);
+
+    background: rgba(15, 17, 23, 0.75);
+
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+
+    color: var(--color-heading);
+
+    z-index: 20;
+
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      background-color 0.25s ease,
+      visibility 0.25s ease;
+
+    svg {
+      font-size: 2.8rem;
+    }
+
+    &:hover:not(:disabled) {
+      background: var(--color-primary);
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-heading);
+      outline-offset: 4px;
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    &--left {
+      left: -6rem;
+    }
+
+    &--right {
+      right: -6rem;
+    }
+  }
+  .movie-row__wrapper:hover &__arrow {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .movie-row__slider {
+    scroll-behavior: auto;
+  }
+
+  .movie-row__arrow {
+    transition: none;
+  }
+}
+
+
+@include tablet {
+  .movie-row {
+    padding-block: var(--space-2xl);
+
+    &__header {
+      margin-bottom: var(--space-lg);
+    }
+
+    &__title {
+      font-size: clamp(2.4rem, 3vw, 3.2rem);
+    }
+
+    &__slider {
+      gap: var(--space-md);
+    }
+
+    &__arrow {
+      width: 4.4rem;
+      height: 4.4rem;
+
+      svg {
+        font-size: 2.4rem;
+      }
+
+      &--left {
+        left: -2.2rem;
+      }
+
+      &--right {
+        right: -2.2rem;
+      }
+    }
+  }
+
+  .movie-card {
+    flex: 0 0 20rem;
+
+    &__content {
+      padding: var(--space-sm);
+    }
+
+    &__title {
+      font-size: var(--fs-md);
+    }
+
+    &__meta {
+      gap: var(--space-xs);
+      font-size: var(--fs-xs);
+    }
+
+    &__duration {
+      font-size: var(--fs-xs);
+    }
+  }
+}
+
+@include mobile-lg {
+  .movie-row {
+    padding-block: var(--space-2xl);
+
+    &__header {
+      margin-bottom: var(--space-md);
+    }
+
+    &__title {
+      font-size: clamp(2.2rem, 5vw, 2.8rem);
+    }
+
+    &__slider {
+      gap: var(--space-md);
+      padding-inline: 0;
+    }
+
+    &__arrow {
+      display: none;
+    }
+  }
+}
+
+@include mobile {
+  .movie-row {
+    padding-block: var(--space-xl);
+
+    &__header {
+      margin-bottom: var(--space-md);
+    }
+
+    &__title {
+      font-size: clamp(2rem, 6vw, 2.4rem);
+    }
+
+    &__slider {
+      gap: var(--space-sm);
+      padding-inline: 0;
+      scroll-snap-type: x mandatory;
+    }
+
+    &__arrow {
+      display: none;
+    }
+  }
+}
+
+@include mobile-sm {
+  .movie-row {
+    padding-block: var(--space-lg);
+
+    &__header {
+      margin-bottom: var(--space-sm);
+    }
+
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__slider {
+      gap: var(--space-sm);
+    }
+  }
+}
+
+@include mobile-xs {
+  .movie-row {
+    &__title {
+      font-size: 1.8rem;
+    }
+
+    &__slider {
+      gap: .8rem;
+    }
+  }
+}
