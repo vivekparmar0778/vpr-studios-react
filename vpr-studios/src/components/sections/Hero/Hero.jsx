@@ -1,21 +1,30 @@
 import "./Hero.scss";
-import { HiChevronLeft, HiChevronRight, HiPlay, HiPlus } from "react-icons/hi2";
-import { heroData } from "../../../constants/heroData";
+import {
+  HiChevronLeft,
+  HiChevronRight,
+  HiPlay,
+  HiPlus,
+  HiSpeakerWave,
+  HiSpeakerXMark,
+  HiInformationCircle,
+} from "react-icons/hi2";
+import { moviesData } from "../../../constants/moviesData";
 import { useState, useEffect, useRef } from "react";
 
 function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const currentMovie = heroData[currentSlide];
+  const [isMuted, setIsMuted] = useState(true);
+  const currentMovie = moviesData[currentSlide];
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === heroData.length - 1 ? 0 : prev + 1));
+    setCurrentSlide((prev) => (prev === moviesData.length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? heroData.length - 1 : prev - 1));
+    setCurrentSlide((prev) => (prev === 0 ? moviesData.length - 1 : prev - 1));
   };
 
   useEffect(() => {
@@ -69,7 +78,7 @@ function Hero() {
   };
 
   useEffect(() => {
-    heroData.forEach((movie) => {
+    moviesData.forEach((movie) => {
       const img = new Image();
       img.src = movie.image;
     });
@@ -96,26 +105,40 @@ function Hero() {
         <div className="hero__wrapper">
           <div className="hero__content" aria-live="polite">
             <div className="hero__meta">
+              <span className="hero__badge">{currentMovie.maturityRating}</span>
+
               <span className="hero__meta-item">⭐ {currentMovie.rating}</span>
 
               <span className="hero__meta-item">{currentMovie.year}</span>
 
-              <span className="hero__meta-item">{currentMovie.genre}</span>
+              <span className="hero__meta-item">{currentMovie.duration}</span>
+
+              <span className="hero__badge">{currentMovie.quality}</span>
             </div>
 
             <h1 className="hero__title">{currentMovie.title}</h1>
+            {currentMovie.tagline && (
+              <p className="hero__tagline">{currentMovie.tagline}</p>
+            )}
 
             <p className="hero__description">{currentMovie.description}</p>
+            <p className="hero__genres">{currentMovie.genres.join(" • ")}</p>
 
             <div className="hero__actions">
               <button className="hero__primary-btn">
                 <HiPlay />
-                <span>Watch Now</span>
+
+                <span>Play</span>
               </button>
 
               <button className="hero__secondary-btn">
+                <HiInformationCircle />
+
+                <span>More Info</span>
+              </button>
+
+              <button className="hero__icon-btn">
                 <HiPlus />
-                <span>My List</span>
               </button>
             </div>
           </div>
@@ -139,9 +162,16 @@ function Hero() {
           <HiChevronRight />
         </button>
       </div>
+      <button
+        className="hero__sound-btn"
+        onClick={() => setIsMuted(!isMuted)}
+        aria-label={isMuted ? "Unmute" : "Mute"}
+      >
+        {isMuted ? <HiSpeakerXMark /> : <HiSpeakerWave />}
+      </button>
       {/* Dots */}
       <div className="hero__dots">
-        {heroData.map((_, index) => (
+        {moviesData.map((_, index) => (
           <button
             key={index}
             className={

@@ -1,6 +1,6 @@
 import "./Navbar.scss";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   HiOutlineMagnifyingGlass,
   HiOutlineBars3,
@@ -26,37 +26,37 @@ function Navbar() {
   }, [isMenuOpen]);
 
   useEffect(() => {
-  const handleResize = () => {
-    if (window.innerWidth > 768) {
-      setIsMenuOpen(false);
-    }
-  };
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsMenuOpen(false);
+      }
+    };
 
-  window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
 
-  return () => {
-    window.removeEventListener("resize", handleResize);
-  };
-}, []);
-useEffect(() => {
-  const handleKeyDown = (event) => {
-    if (event.key === "Escape") {
-      setIsMenuOpen(false);
-    }
-  };
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+      }
+    };
 
-  document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
 
-  return () => {
-    document.removeEventListener("keydown", handleKeyDown);
-  };
-}, []);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
+  const location = useLocation();
   return (
     <header className="navbar">
       <div className="container">
         <div className="navbar__wrapper">
-          
           {/* Logo */}
 
           <NavLink to="/" className="navbar__logo">
@@ -88,9 +88,17 @@ useEffect(() => {
           {/* Actions */}
 
           <div className="navbar__actions">
-            <button className="navbar__icon-btn" aria-label="Search">
+            <NavLink
+              to="/search"
+              aria-label="Search"
+              className={
+                location.pathname === "/search"
+                  ? "navbar__icon-btn navbar__icon-btn--active"
+                  : "navbar__icon-btn"
+              }
+            >
               <HiOutlineMagnifyingGlass />
-            </button>
+            </NavLink>
 
             <button className="navbar__sign-btn">Sign In</button>
 
@@ -106,11 +114,8 @@ useEffect(() => {
         </div>
       </div>
       {isMenuOpen && (
-            <div
-              className="navbar__overlay"
-              onClick={() => setIsMenuOpen(false)}
-            />
-          )}
+        <div className="navbar__overlay" onClick={() => setIsMenuOpen(false)} />
+      )}
     </header>
   );
 }

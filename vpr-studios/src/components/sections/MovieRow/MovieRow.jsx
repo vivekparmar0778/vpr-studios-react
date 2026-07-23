@@ -1,22 +1,10 @@
 import "./MovieRow.scss";
-import {
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
-import {
-  HiChevronLeft,
-  HiChevronRight,
-} from "react-icons/hi2";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
 import MovieCard from "../../cards/MovieCard/MovieCard";
 
-function MovieRow({
-  title = "",
-  movies = [],
-  onMovieSelect,
-}) {
+function MovieRow({ title = "", movies = [], onMovieSelect }) {
   const sliderRef = useRef(null);
 
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -34,8 +22,7 @@ function MovieRow({
 
     if (!card) return 0;
 
-    const gap =
-      parseFloat(getComputedStyle(slider).gap) || 0;
+    const gap = parseFloat(getComputedStyle(slider).gap) || 0;
 
     let visibleCards = 5;
 
@@ -51,14 +38,11 @@ function MovieRow({
 
     if (!slider) return;
 
-    const maxScroll =
-      slider.scrollWidth - slider.clientWidth;
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
 
     setShowLeftArrow(slider.scrollLeft > 5);
 
-    setShowRightArrow(
-      slider.scrollLeft < maxScroll - 5,
-    );
+    setShowRightArrow(slider.scrollLeft < maxScroll - 5);
   }, []);
 
   const scrollSlider = useCallback(
@@ -100,10 +84,7 @@ function MovieRow({
     resizeObserver.observe(slider);
 
     return () => {
-      slider.removeEventListener(
-        "scroll",
-        updateArrows,
-      );
+      slider.removeEventListener("scroll", updateArrows);
 
       resizeObserver.disconnect();
     };
@@ -151,16 +132,9 @@ function MovieRow({
       }
     };
 
-    slider.addEventListener(
-      "keydown",
-      handleKeyDown,
-    );
+    slider.addEventListener("keydown", handleKeyDown);
 
-    return () =>
-      slider.removeEventListener(
-        "keydown",
-        handleKeyDown,
-      );
+    return () => slider.removeEventListener("keydown", handleKeyDown);
   }, [scrollSlider]);
 
   useEffect(() => {
@@ -169,8 +143,7 @@ function MovieRow({
     if (!slider) return;
 
     const handleWheel = (event) => {
-      if (Math.abs(event.deltaY) < Math.abs(event.deltaX))
-        return;
+      if (Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
 
       event.preventDefault();
 
@@ -183,24 +156,14 @@ function MovieRow({
       passive: false,
     });
 
-    return () =>
-      slider.removeEventListener(
-        "wheel",
-        handleWheel,
-      );
+    return () => slider.removeEventListener("wheel", handleWheel);
   }, []);
 
   return (
-    <section
-      className="movie-row"
-      aria-labelledby={`row-${title}`}
-    >
+    <section className="movie-row" aria-labelledby={`row-${title}`}>
       <div className="container">
         <div className="movie-row__header">
-          <h2
-            id={`row-${title}`}
-            className="movie-row__title"
-          >
+          <h2 id={`row-${title}`} className="movie-row__title">
             {title}
           </h2>
         </div>
@@ -218,16 +181,12 @@ function MovieRow({
             </button>
           )}
 
-          <div
-            ref={sliderRef}
-            className="movie-row__slider"
-            tabIndex={0}
-          >
+          <div ref={sliderRef} className="movie-row__slider" tabIndex={0}>
             {movies.map((movie) => (
               <MovieCard
                 key={movie.id}
                 movie={movie}
-                onClick={onMovieSelect}
+                onClick={() => onMovieSelect?.(movie)}
               />
             ))}
           </div>

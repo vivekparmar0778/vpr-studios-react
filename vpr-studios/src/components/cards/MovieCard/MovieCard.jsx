@@ -1,24 +1,30 @@
 import "./MovieCard.scss";
+import {
+  HiOutlinePlay,
+  HiOutlinePlus,
+  HiOutlineInformationCircle,
+} from "react-icons/hi2";
 
 function MovieCard({
   movie,
   onClick,
 }) {
   const handleClick = () => {
-    if (onClick) {
-      onClick(movie);
-    }
+    onClick?.(movie);
   };
 
   return (
     <article
       className="movie-card"
-      onClick={handleClick}
       tabIndex={0}
       role="button"
       aria-label={`Open details for ${movie.title}`}
+      onClick={handleClick}
       onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
           event.preventDefault();
           handleClick();
         }
@@ -31,6 +37,35 @@ function MovieCard({
           alt={movie.title}
           loading="lazy"
         />
+
+        <div className="movie-card__overlay">
+          <div className="movie-card__actions">
+            <button
+              type="button"
+              aria-label="Play Movie"
+            >
+              <HiOutlinePlay />
+            </button>
+
+            <button
+              type="button"
+              aria-label="Add to My List"
+            >
+              <HiOutlinePlus />
+            </button>
+
+            <button
+              type="button"
+              aria-label="More Information"
+              onClick={(event) => {
+                event.stopPropagation();
+                handleClick();
+              }}
+            >
+              <HiOutlineInformationCircle />
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="movie-card__content">
@@ -38,15 +73,22 @@ function MovieCard({
           {movie.title}
         </h3>
 
-        <div className="movie-card__meta">
-          <span>⭐ {movie.rating}</span>
-          <span>{movie.year}</span>
-          <span>{movie.genre}</span>
+        <div className="movie-card__badges">
+          <span>{movie.quality}</span>
+          <span>{movie.maturityRating}</span>
         </div>
 
-        <span className="movie-card__duration">
-          {movie.duration}
-        </span>
+        <div className="movie-card__meta">
+          <span>⭐ {movie.rating}</span>
+
+          <span>{movie.year}</span>
+
+          <span>{movie.duration}</span>
+        </div>
+
+        <div className="movie-card__genres">
+          {movie.genres?.slice(0, 2).join(" • ")}
+        </div>
       </div>
     </article>
   );
