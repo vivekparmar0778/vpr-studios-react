@@ -5,12 +5,25 @@ import {
   HiOutlineMagnifyingGlass,
   HiOutlineBars3,
   HiOutlineXMark,
+  HiOutlineHome,
+  HiOutlineFilm,
+  HiOutlineTv,
+  HiOutlineFire,
+  HiOutlineBookmark,
+  HiOutlineUser,
 } from "react-icons/hi2";
 import { useState, useEffect } from "react";
 
 import { navLinks } from "../../../constants/navLinks";
 
 function Navbar() {
+  const navIcons = {
+    Home: <HiOutlineHome />,
+    Movies: <HiOutlineFilm />,
+    "TV Shows": <HiOutlineTv />,
+    Trending: <HiOutlineFire />,
+    "My List": <HiOutlineBookmark />,
+  };
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -24,6 +37,22 @@ function Navbar() {
       document.body.style.overflow = "";
     };
   }, [isMenuOpen]);
+
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -54,7 +83,10 @@ function Navbar() {
 
   const location = useLocation();
   return (
-    <header className="navbar">
+    <>
+    <header
+      className={`navbar ${isScrolled || isMenuOpen ? "navbar--scrolled" : ""}`}
+    >
       <div className="container">
         <div className="navbar__wrapper">
           {/* Logo */}
@@ -66,6 +98,15 @@ function Navbar() {
           {/* Navigation */}
 
           <nav className={`navbar__menu ${isMenuOpen ? "active" : ""}`}>
+            <div className="navbar__mobile-header">
+              <button
+                className="navbar__mobile-sign-btn"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <HiOutlineUser />
+                <span>Sign In</span>
+              </button>
+            </div>
             <ul className="navbar__links">
               {navLinks.map((link) => (
                 <li key={link.id}>
@@ -78,7 +119,9 @@ function Navbar() {
                         : "navbar__link"
                     }
                   >
-                    {link.title}
+                    {navIcons[link.title]}
+
+                    <span>{link.title}</span>
                   </NavLink>
                 </li>
               ))}
@@ -113,11 +156,16 @@ function Navbar() {
           </div>
         </div>
       </div>
-      {isMenuOpen && (
-        <div className="navbar__overlay" onClick={() => setIsMenuOpen(false)} />
-      )}
+      
     </header>
-  );
-}
+
+    {isMenuOpen && (
+  <div
+    className="navbar__overlay"
+    onClick={() => setIsMenuOpen(false)}
+  />
+)}
+</>
+)}
 
 export default Navbar;

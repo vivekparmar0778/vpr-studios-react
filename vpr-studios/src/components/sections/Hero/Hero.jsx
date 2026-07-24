@@ -9,7 +9,8 @@ import {
   HiInformationCircle,
 } from "react-icons/hi2";
 import { moviesData } from "../../../constants/moviesData";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+
 
 function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -19,23 +20,25 @@ function Hero() {
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === moviesData.length - 1 ? 0 : prev + 1));
-  };
+ const nextSlide = useCallback(() => {
+  setCurrentSlide((prev) =>
+    prev === moviesData.length - 1 ? 0 : prev + 1
+  );
+}, []);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? moviesData.length - 1 : prev - 1));
-  };
+const prevSlide = useCallback(() => {
+  setCurrentSlide((prev) =>
+    prev === 0 ? moviesData.length - 1 : prev - 1
+  );
+}, []);
 
   useEffect(() => {
-    if (isPaused) return;
+  if (isPaused) return;
 
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
+  const interval = setInterval(nextSlide, 5000);
 
-    return () => clearInterval(interval);
-  }, [currentSlide, isPaused]);
+  return () => clearInterval(interval);
+}, [isPaused, nextSlide]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -53,7 +56,7 @@ function Hero() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [nextSlide, prevSlide]);
 
   const handleTouchStart = (event) => {
     touchStartX.current = event.touches[0].clientX;
@@ -65,14 +68,14 @@ function Hero() {
 
   const handleTouchEnd = () => {
     const distance = touchStartX.current - touchEndX.current;
-
+const SWIPE_THRESHOLD = 70;
     // Swipe Left
-    if (distance > 70) {
+    if (distance > SWIPE_THRESHOLD) {
       nextSlide();
     }
 
     // Swipe Right
-    if (distance < -70) {
+    if (distance < -SWIPE_THRESHOLD) {
       prevSlide();
     }
   };
@@ -95,14 +98,15 @@ function Hero() {
       {/* Background */}
       <div
         className="hero__background"
+        aria-hidden="true"
         style={{
           backgroundImage: `url(${currentMovie.image})`,
         }}
       ></div>
-      <div className="hero__overlay" />
+      <div className="hero__overlay" aria-hidden="true" />
       {/* Content */}
       <div className="container">
-        <div className="hero__wrapper">
+        <div className="hero__wrapper" aria-label="Featured Movie">
           <div className="hero__content" aria-live="polite">
             <div className="hero__meta">
               <span className="hero__badge">{currentMovie.maturityRating}</span>
@@ -125,19 +129,24 @@ function Hero() {
             <p className="hero__genres">{currentMovie.genres.join(" • ")}</p>
 
             <div className="hero__actions">
-              <button className="hero__primary-btn">
+              <button type="button" className="hero__primary-btn">
                 <HiPlay />
 
                 <span>Play</span>
               </button>
 
-              <button className="hero__secondary-btn">
+              <button type="button" className="hero__secondary-btn">
                 <HiInformationCircle />
 
                 <span>More Info</span>
               </button>
 
-              <button className="hero__icon-btn">
+              <button
+                type="button"
+                className="hero__icon-btn"
+                aria-label="Add to My List"
+                className="hero__icon-btn"
+              >
                 <HiPlus />
               </button>
             </div>
@@ -147,6 +156,7 @@ function Hero() {
       {/* Controls */}
       <div className="hero__controls">
         <button
+          type="button"
           className="hero__control-btn"
           aria-label="Previous Slide"
           onClick={prevSlide}
@@ -155,6 +165,7 @@ function Hero() {
         </button>
 
         <button
+          type="button"
           className="hero__control-btn"
           aria-label="Next Slide"
           onClick={nextSlide}
@@ -163,6 +174,7 @@ function Hero() {
         </button>
       </div>
       <button
+        type="button"
         className="hero__sound-btn"
         onClick={() => setIsMuted(!isMuted)}
         aria-label={isMuted ? "Unmute" : "Mute"}
@@ -173,6 +185,7 @@ function Hero() {
       <div className="hero__dots">
         {moviesData.map((_, index) => (
           <button
+            type="button"
             key={index}
             className={
               index === currentSlide
